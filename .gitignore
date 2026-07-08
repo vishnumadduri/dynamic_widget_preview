@@ -1,0 +1,32 @@
+# Compiled output
+out/
+dist/
+*.js
+!*.config.js
+*.map
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build artifacts
+*.vsix
+
+# IDE & editor
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+
+# Testing
+.nyc_output/
+coverage/
+
+# Environment
+.env
+.env.local
+*.pem

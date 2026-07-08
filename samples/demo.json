@@ -1,0 +1,143 @@
+{
+  "type": "Scaffold",
+  "backgroundColor": "#FFF5F5F5",
+  "appBar": {
+    "type": "AppBar",
+    "title": {
+      "type": "Text",
+      "data": "Demo"
+    },
+    "centerTitle": true,
+    "backgroundColor": "#FF2196F3"
+  },
+  "body": {
+    "type": "SingleChildScrollView",
+    "padding": "8,8,8,8",
+    "child": {
+      "type": "Column",
+      "crossAxisAlignment": "stretch",
+      "children": [
+        {
+          "type": "Container",
+          "padding": "16,16,16,16",
+          "margin": "0,0,0,8",
+          "color": "#FFFFFFFF",
+          "child": {
+            "type": "Row",
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "type": "Icon",
+                "data": "favorite",
+                "color": "#FFFF0000",
+                "size": 32
+              },
+              {
+                "type": "Text",
+                "data": "Hello dynamic_widget",
+                "textAlign": "center"
+              },
+              {
+                "type": "ElevatedButton",
+                "backgroundColor": "#FF2196F3",
+                "foregroundColor": "#FFFFFFFF",
+                "click_event": "route://test",
+                "child": {
+                  "type": "Text",
+                  "data": "Go"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Card",
+          "elevation": 4,
+          "child": {
+            "type": "ListTile",
+            "leading": {
+              "type": "Icon",
+              "data": "person"
+            },
+            "title": {
+              "type": "Text",
+              "data": "List tile title"
+            },
+            "subtitle": {
+              "type": "Text",
+              "data": "Subtitle text"
+            },
+            "trailing": {
+              "type": "Icon",
+              "data": "arrow_forward"
+            }
+          }
+        },
+        {
+          "type": "Stack",
+          "alignment": "center",
+          "children": [
+            {
+              "type": "Placeholder",
+              "fallbackWidth": 200,
+              "fallbackHeight": 100
+            },
+            {
+              "type": "Positioned",
+              "top": 4,
+              "right": 4,
+              "child": {
+                "type": "Text",
+                "data": "overlay"
+              }
+            }
+          ]
+        },
+        {
+          "type": "Divider",
+          "color": "#FFCCCCCC"
+        },
+        {
+          "type": "Wrap",
+          "spacing": 8,
+          "runSpacing": 8,
+          "children": [
+            {
+              "type": "SizedBox",
+              "width": 40,
+              "height": 40,
+              "child": {
+                "type": "Container",
+                "color": "#FFAA0000"
+              }
+            },
+            {
+              "type": "SizedBox",
+              "width": 40,
+              "height": 40,
+              "child": {
+                "type": "Container",
+                "color": "#FF00AA00"
+              }
+            }
+          ]
+        },
+        {
+          "type": "DropCapText",
+          "data": "This is a drop cap paragraph demonstrating first letter styling.",
+          "dropCapStyle": {
+            "fontSize": 40,
+            "color": "#FF2196F3"
+          }
+        }
+      ]
+    }
+  },
+  "floatingActionButton": {
+    "type": "TextButton",
+    "child": {
+      "type": "Text",
+      "data": "FAB"
+    }
+  }
+}

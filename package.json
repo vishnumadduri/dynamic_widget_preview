@@ -1,0 +1,61 @@
+{
+  "name": "dynamic-widget-preview",
+  "displayName": "Dynamic Widget Preview",
+  "description": "Live preview for dynamic_widget JSON files (Flutter dynamic_widget package) directly in VS Code.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "private": true,
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:dynamicWidgetPreview.start"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dynamicWidgetPreview.start",
+        "title": "Dynamic Widget: Open Preview",
+        "icon": "$(open-preview)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "dynamicWidgetPreview.start",
+          "when": "resourceExtname == .json",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "dynamicWidgetPreview.start",
+          "when": "resourceLangId == json",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "dynamicWidgetPreview.start"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/vscode": "^1.74.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.4.0"
+  }
+}

@@ -1,0 +1,316 @@
+{
+  "type": "Scaffold",
+  "backgroundColor": "#FFF2F2F2",
+  "appBar": {
+    "type": "AppBar",
+    "title": { "type": "Text", "data": "Weather" },
+    "centerTitle": true,
+    "backgroundColor": "#FF1976D2"
+  },
+  "body": {
+    "type": "SingleChildScrollView",
+    "child": {
+      "type": "Column",
+      "crossAxisAlignment": "stretch",
+      "children": [
+        {
+          "type": "Container",
+          "color": "#FF1976D2",
+          "padding": "24,32,24,32",
+          "child": {
+            "type": "Column",
+            "crossAxisAlignment": "center",
+            "children": [
+              { "type": "Text", "textSpan": { "text": "San Francisco, CA", "style": { "color": "#FFFFFFFF", "fontSize": 20, "fontWeight": "w600" } } },
+              { "type": "SizedBox", "height": 4 },
+              { "type": "Text", "textSpan": { "text": "Tuesday, July 8", "style": { "color": "#CCFFFFFF", "fontSize": 13 } } },
+              { "type": "SizedBox", "height": 16 },
+              {
+                "type": "Row",
+                "mainAxisAlignment": "center",
+                "crossAxisAlignment": "center",
+                "children": [
+                  { "type": "NetworkImage", "src": "https://openweathermap.org/img/wn/02d@4x.png", "width": 110, "height": 110 },
+                  { "type": "Text", "textSpan": { "text": "72°", "style": { "color": "#FFFFFFFF", "fontSize": 64, "fontWeight": "w300" } } }
+                ]
+              },
+              { "type": "Text", "textSpan": { "text": "Partly Cloudy", "style": { "color": "#FFFFFFFF", "fontSize": 16 } } },
+              { "type": "SizedBox", "height": 20 },
+              { "type": "Divider", "color": "#33FFFFFF", "height": 1, "thickness": 1 },
+              { "type": "SizedBox", "height": 12 },
+              {
+                "type": "Row",
+                "mainAxisAlignment": "spaceAround",
+                "children": [
+                  {
+                    "type": "Column",
+                    "mainAxisSize": "min",
+                    "children": [
+                      { "type": "Icon", "data": "water_drop", "color": "#FFFFFFFF", "size": 20 },
+                      { "type": "SizedBox", "height": 4 },
+                      { "type": "Text", "textSpan": { "text": "64%", "style": { "color": "#FFFFFFFF", "fontSize": 14, "fontWeight": "w600" } } },
+                      { "type": "Text", "textSpan": { "text": "Humidity", "style": { "color": "#CCFFFFFF", "fontSize": 11 } } }
+                    ]
+                  },
+                  {
+                    "type": "Column",
+                    "mainAxisSize": "min",
+                    "children": [
+                      { "type": "Icon", "data": "air", "color": "#FFFFFFFF", "size": 20 },
+                      { "type": "SizedBox", "height": 4 },
+                      { "type": "Text", "textSpan": { "text": "12 mph", "style": { "color": "#FFFFFFFF", "fontSize": 14, "fontWeight": "w600" } } },
+                      { "type": "Text", "textSpan": { "text": "Wind", "style": { "color": "#CCFFFFFF", "fontSize": 11 } } }
+                    ]
+                  },
+                  {
+                    "type": "Column",
+                    "mainAxisSize": "min",
+                    "children": [
+                      { "type": "Icon", "data": "thermostat", "color": "#FFFFFFFF", "size": 20 },
+                      { "type": "SizedBox", "height": 4 },
+                      { "type": "Text", "textSpan": { "text": "75°", "style": { "color": "#FFFFFFFF", "fontSize": 14, "fontWeight": "w600" } } },
+                      { "type": "Text", "textSpan": { "text": "Feels like", "style": { "color": "#CCFFFFFF", "fontSize": 11 } } }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Padding",
+          "padding": "16,16,16,0",
+          "child": {
+            "type": "Card",
+            "elevation": 2,
+            "child": {
+              "type": "Padding",
+              "padding": "16,12,16,16",
+              "child": {
+                "type": "Column",
+                "crossAxisAlignment": "stretch",
+                "children": [
+                  { "type": "Text", "textSpan": { "text": "Hourly Forecast", "style": { "fontSize": 16, "fontWeight": "w600" } } },
+                  { "type": "SizedBox", "height": 12 },
+                  {
+                    "type": "ListView",
+                    "scrollDirection": "horizontal",
+                    "children": [
+                      {
+                        "type": "Padding", "padding": "0,0,20,0",
+                        "child": { "type": "Column", "mainAxisSize": "min", "children": [
+                          { "type": "Text", "data": "Now", "textAlign": "center" },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "NetworkImage", "src": "https://openweathermap.org/img/wn/01d@2x.png", "width": 40, "height": 40 },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "Text", "textSpan": { "text": "73°", "style": { "fontWeight": "w600" } } }
+                        ] }
+                      },
+                      {
+                        "type": "Padding", "padding": "0,0,20,0",
+                        "child": { "type": "Column", "mainAxisSize": "min", "children": [
+                          { "type": "Text", "data": "1PM", "textAlign": "center" },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "NetworkImage", "src": "https://openweathermap.org/img/wn/02d@2x.png", "width": 40, "height": 40 },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "Text", "textSpan": { "text": "74°", "style": { "fontWeight": "w600" } } }
+                        ] }
+                      },
+                      {
+                        "type": "Padding", "padding": "0,0,20,0",
+                        "child": { "type": "Column", "mainAxisSize": "min", "children": [
+                          { "type": "Text", "data": "2PM", "textAlign": "center" },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "NetworkImage", "src": "https://openweathermap.org/img/wn/02d@2x.png", "width": 40, "height": 40 },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "Text", "textSpan": { "text": "75°", "style": { "fontWeight": "w600" } } }
+                        ] }
+                      },
+                      {
+                        "type": "Padding", "padding": "0,0,20,0",
+                        "child": { "type": "Column", "mainAxisSize": "min", "children": [
+                          { "type": "Text", "data": "3PM", "textAlign": "center" },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "NetworkImage", "src": "https://openweathermap.org/img/wn/03d@2x.png", "width": 40, "height": 40 },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "Text", "textSpan": { "text": "74°", "style": { "fontWeight": "w600" } } }
+                        ] }
+                      },
+                      {
+                        "type": "Padding", "padding": "0,0,20,0",
+                        "child": { "type": "Column", "mainAxisSize": "min", "children": [
+                          { "type": "Text", "data": "4PM", "textAlign": "center" },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "NetworkImage", "src": "https://openweathermap.org/img/wn/10d@2x.png", "width": 40, "height": 40 },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "Text", "textSpan": { "text": "70°", "style": { "fontWeight": "w600" } } }
+                        ] }
+                      },
+                      {
+                        "type": "Column", "mainAxisSize": "min", "children": [
+                          { "type": "Text", "data": "5PM", "textAlign": "center" },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "NetworkImage", "src": "https://openweathermap.org/img/wn/10d@2x.png", "width": 40, "height": 40 },
+                          { "type": "SizedBox", "height": 8 },
+                          { "type": "Text", "textSpan": { "text": "68°", "style": { "fontWeight": "w600" } } }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "Padding",
+          "padding": "16,16,16,0",
+          "child": {
+            "type": "Card",
+            "elevation": 2,
+            "child": {
+              "type": "Padding",
+              "padding": "16,12,16,4",
+              "child": {
+                "type": "Column",
+                "crossAxisAlignment": "stretch",
+                "children": [
+                  { "type": "Text", "textSpan": { "text": "7-Day Forecast", "style": { "fontSize": 16, "fontWeight": "w600" } } },
+                  { "type": "SizedBox", "height": 4 },
+                  {
+                    "type": "ListView",
+                    "shrinkWrap": true,
+                    "children": [
+                      {
+                        "type": "ListTile", "contentPadding": "0,4,0,4",
+                        "leading": { "type": "AssetImage", "name": "assets/sunny.png", "width": 32, "height": 32 },
+                        "title": { "type": "Text", "data": "Today" },
+                        "subtitle": { "type": "Text", "data": "Sunny" },
+                        "trailing": { "type": "Row", "mainAxisSize": "min", "children": [
+                          { "type": "Text", "textSpan": { "text": "64°", "style": { "color": "#FF9E9E9E" } } },
+                          { "type": "SizedBox", "width": 12 },
+                          { "type": "Text", "textSpan": { "text": "78°", "style": { "fontWeight": "w600" } } }
+                        ] }
+                      },
+                      { "type": "Divider", "indent": 56, "height": 1 },
+                      {
+                        "type": "ListTile", "contentPadding": "0,4,0,4",
+                        "leading": { "type": "AssetImage", "name": "assets/partly-cloudy.png", "width": 32, "height": 32 },
+                        "title": { "type": "Text", "data": "Wed" },
+                        "subtitle": { "type": "Text", "data": "Partly Cloudy" },
+                        "trailing": { "type": "Row", "mainAxisSize": "min", "children": [
+                          { "type": "Text", "textSpan": { "text": "60°", "style": { "color": "#FF9E9E9E" } } },
+                          { "type": "SizedBox", "width": 12 },
+                          { "type": "Text", "textSpan": { "text": "74°", "style": { "fontWeight": "w600" } } }
+                        ] }
+                      },
+                      { "type": "Divider", "indent": 56, "height": 1 },
+                      {
+                        "type": "ListTile", "contentPadding": "0,4,0,4",
+                        "leading": { "type": "AssetImage", "name": "assets/partly-cloudy.png", "width": 32, "height": 32 },
+                        "title": { "type": "Text", "data": "Thu" },
+                        "subtitle": { "type": "Text", "data": "Cloudy" },
+                        "trailing": { "type": "Row", "mainAxisSize": "min", "children": [
+                          { "type": "Text", "textSpan": { "text": "58°", "style": { "color": "#FF9E9E9E" } } },
+                          { "type": "SizedBox", "width": 12 },
+                          { "type": "Text", "textSpan": { "text": "70°", "style": { "fontWeight": "w600" } } }
+                        ] }
+                      },
+                      { "type": "Divider", "indent": 56, "height": 1 },
+                      {
+                        "type": "ListTile", "contentPadding": "0,4,0,4",
+                        "leading": { "type": "AssetImage", "name": "assets/sunny.png", "width": 32, "height": 32 },
+                        "title": { "type": "Text", "data": "Fri" },
+                        "subtitle": { "type": "Text", "data": "Sunny" },
+                        "trailing": { "type": "Row", "mainAxisSize": "min", "children": [
+                          { "type": "Text", "textSpan": { "text": "61°", "style": { "color": "#FF9E9E9E" } } },
+                          { "type": "SizedBox", "width": 12 },
+                          { "type": "Text", "textSpan": { "text": "80°", "style": { "fontWeight": "w600" } } }
+                        ] }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "Padding",
+          "padding": "16,16,16,16",
+          "child": {
+            "type": "Card",
+            "elevation": 2,
+            "child": {
+              "type": "Padding",
+              "padding": "16,12,16,16",
+              "child": {
+                "type": "Column",
+                "crossAxisAlignment": "stretch",
+                "children": [
+                  { "type": "Text", "textSpan": { "text": "Details", "style": { "fontSize": 16, "fontWeight": "w600" } } },
+                  { "type": "SizedBox", "height": 12 },
+                  {
+                    "type": "GridView",
+                    "crossAxisCount": 2,
+                    "childAspectRatio": 2.6,
+                    "mainAxisSpacing": 8,
+                    "crossAxisSpacing": 8,
+                    "children": [
+                      {
+                        "type": "Row", "crossAxisAlignment": "center", "children": [
+                          { "type": "Icon", "data": "water_drop", "size": 22, "color": "#FF1976D2" },
+                          { "type": "SizedBox", "width": 8 },
+                          { "type": "Column", "crossAxisAlignment": "start", "mainAxisSize": "min", "children": [
+                            { "type": "Text", "textSpan": { "text": "Humidity", "style": { "fontSize": 11, "color": "#FF9E9E9E" } } },
+                            { "type": "Text", "textSpan": { "text": "64%", "style": { "fontSize": 14, "fontWeight": "w600" } } }
+                          ] }
+                        ]
+                      },
+                      {
+                        "type": "Row", "crossAxisAlignment": "center", "children": [
+                          { "type": "Icon", "data": "air", "size": 22, "color": "#FF1976D2" },
+                          { "type": "SizedBox", "width": 8 },
+                          { "type": "Column", "crossAxisAlignment": "start", "mainAxisSize": "min", "children": [
+                            { "type": "Text", "textSpan": { "text": "Wind", "style": { "fontSize": 11, "color": "#FF9E9E9E" } } },
+                            { "type": "Text", "textSpan": { "text": "12 mph", "style": { "fontSize": 14, "fontWeight": "w600" } } }
+                          ] }
+                        ]
+                      },
+                      {
+                        "type": "Row", "crossAxisAlignment": "center", "children": [
+                          { "type": "Icon", "data": "wb_sunny", "size": 22, "color": "#FF1976D2" },
+                          { "type": "SizedBox", "width": 8 },
+                          { "type": "Column", "crossAxisAlignment": "start", "mainAxisSize": "min", "children": [
+                            { "type": "Text", "textSpan": { "text": "UV Index", "style": { "fontSize": 11, "color": "#FF9E9E9E" } } },
+                            { "type": "Text", "textSpan": { "text": "5 (Moderate)", "style": { "fontSize": 14, "fontWeight": "w600" } } }
+                          ] }
+                        ]
+                      },
+                      {
+                        "type": "Row", "crossAxisAlignment": "center", "children": [
+                          { "type": "Icon", "data": "cloud", "size": 22, "color": "#FF1976D2" },
+                          { "type": "SizedBox", "width": 8 },
+                          { "type": "Column", "crossAxisAlignment": "start", "mainAxisSize": "min", "children": [
+                            { "type": "Text", "textSpan": { "text": "Pressure", "style": { "fontSize": 11, "color": "#FF9E9E9E" } } },
+                            { "type": "Text", "textSpan": { "text": "1015 hPa", "style": { "fontSize": 14, "fontWeight": "w600" } } }
+                          ] }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "floatingActionButton": {
+    "type": "TextButton",
+    "backgroundColor": "#FF1976D2",
+    "click_event": "route://refreshWeather",
+    "child": { "type": "Icon", "data": "refresh", "color": "#FFFFFFFF", "size": 22 }
+  }
+}
