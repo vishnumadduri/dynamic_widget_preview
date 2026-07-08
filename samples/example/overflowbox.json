@@ -1,0 +1,20 @@
+{
+  "type": "Container",
+  "width": 200,
+  "height": 200,
+  "color": "#FF00FF",
+  "padding": "5, 5, 5, 5",
+  "child": {
+    "type": "OverflowBox",
+    "maxWidth": 300,
+    "maxHeight": 300,
+    "child": {
+      "type": "Container",
+      "child": {
+        "width": 400,
+        "height": 400,
+        "color": "#33FF00FF"
+      }
+    }
+  }
+}

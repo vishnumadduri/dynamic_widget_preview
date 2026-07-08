@@ -1,0 +1,19 @@
+{
+  "type": "Row",
+  "children": [
+    {
+      "type": "Container",
+      "color": "#FF00FF",
+      "width": 100
+    },
+    {
+      "type": "Offstage",
+      "offstage": true,
+      "child": {
+        "type": "Container",
+        "color": "#FFFF00",
+        "width": 250
+      }
+    }
+  ]
+}

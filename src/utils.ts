@@ -63,10 +63,17 @@ const ALIGNMENTS: Record<string, { justifyContent: string; alignItems: string }>
     bottomLeft: { justifyContent: 'flex-start', alignItems: 'flex-end' },
     bottomCenter: { justifyContent: 'center', alignItems: 'flex-end' },
     bottomRight: { justifyContent: 'flex-end', alignItems: 'flex-end' },
+    // AlignmentDirectional variants (assumes LTR text direction).
+    topStart: { justifyContent: 'flex-start', alignItems: 'flex-start' },
+    topEnd: { justifyContent: 'flex-end', alignItems: 'flex-start' },
+    centerStart: { justifyContent: 'flex-start', alignItems: 'center' },
+    centerEnd: { justifyContent: 'flex-end', alignItems: 'center' },
+    bottomStart: { justifyContent: 'flex-start', alignItems: 'flex-end' },
+    bottomEnd: { justifyContent: 'flex-end', alignItems: 'flex-end' },
 };
 
-export function alignmentToFlex(value?: string): { justifyContent: string; alignItems: string } {
-    return ALIGNMENTS[value || 'center'] || ALIGNMENTS.center;
+export function alignmentToFlex(value?: string, fallback: string = 'center'): { justifyContent: string; alignItems: string } {
+    return ALIGNMENTS[value || fallback] || ALIGNMENTS.center;
 }
 
 export function alignmentToObjectPosition(value?: string): string {

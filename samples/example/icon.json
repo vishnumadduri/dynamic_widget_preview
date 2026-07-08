@@ -1,0 +1,31 @@
+{
+  "type": "Row",
+  "mainAxisAlignment": "spaceAround",
+  "children": [
+    {
+      "type": "Icon",
+      "data": "fa.google",
+      "color": "#000000",
+      "size": 36
+    },
+    {
+      "type": "Icon",
+      "data": "favorite",
+      "color": "#FFC0CB",
+      "size": 24,
+      "semanticLabel": "Text to announce in accessibility modes"
+    },
+    {
+      "type": "Icon",
+      "data": "audiotrack",
+      "color": "#008000",
+      "size": 30
+    },
+    {
+      "type": "Icon",
+      "data": "beach_access",
+      "color": "#0000FF",
+      "size": 36
+    }
+  ]
+}

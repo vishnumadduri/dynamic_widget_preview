@@ -1,0 +1,186 @@
+{
+  "type": "ListView",
+  "padding": "10, 10, 10, 10",
+  "children": [
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    },
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Divider",
+      "height": 8,
+      "color": "##FF00FF",
+      "indent": 100,
+      "endIndent": 100,
+      "thickness": 20
+    }
+  ]
+}

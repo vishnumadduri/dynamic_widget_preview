@@ -14,6 +14,7 @@ Live preview for [dynamic_widget](https://pub.dev/packages/dynamic_widget) JSON 
 - `samples/weather.json` — a complex weather screen (`Scaffold`/`AppBar`, hero section, horizontally-scrolling hourly forecast, a 7-day forecast list, and a details grid). It demonstrates both ways to show a widget icon/image:
   - `NetworkImage` — weather icons fetched live from `openweathermap.org`'s public icon CDN.
   - `AssetImage` — local icon files bundled in `samples/assets/`, resolved relative to the JSON file's own folder (works the same way for any asset path you reference from your own JSON). `FileImage` (an absolute path on disk) is resolved the same way — swap in a `filePath` pointing at a file on your machine to try it.
+- `samples/example/*.json` — one JSON file per widget type, extracted directly from the upstream [`dynamic_widget`](https://github.com/dengyin2000/dynamic_widget) package's own `example/lib/widget_json.dart` demo app. Useful for checking a single widget's property handling in isolation (e.g. `samples/example/card.json`, `samples/example/wrap.json`, `samples/example/stack.json`).
 
 ## Usage
 

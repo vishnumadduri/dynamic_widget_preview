@@ -49,9 +49,16 @@ function renderContainer(node: any, ctx: RenderContext): string {
     const height = px(node.height);
     const c = node.constraints || {};
     const align = node.alignment ? alignmentToFlex(node.alignment) : undefined;
+    // Flutter: a Container with `alignment` but no width/height/constraints expands
+    // to fill the available space so its child can actually be aligned within it.
+    const hasSizeConstraint = node.width !== undefined || node.height !== undefined
+        || c.minWidth !== undefined || c.maxWidth !== undefined || c.minHeight !== undefined || c.maxHeight !== undefined;
+    const fillForAlign = align && !hasSizeConstraint;
     const outerStyle = styleStr({ margin });
     const innerStyle = styleStr({
-        padding, backgroundColor: color, width, height,
+        padding, backgroundColor: color,
+        width: width ?? (fillForAlign ? '100%' : undefined),
+        height: height ?? (fillForAlign ? '100%' : undefined),
         minWidth: px(c.minWidth), maxWidth: px(c.maxWidth), minHeight: px(c.minHeight), maxHeight: px(c.maxHeight),
         display: align ? 'flex' : undefined,
         justifyContent: align?.justifyContent, alignItems: align?.alignItems,
@@ -92,11 +99,14 @@ function renderAspectRatio(node: any, ctx: RenderContext): string {
 
 function renderFittedBox(node: any, ctx: RenderContext): string {
     const a = alignmentToFlex(node.alignment);
+    const fit = node.fit || 'contain';
+    const fillChild = fit === 'fill';
     const style = styleStr({
         display: 'flex', justifyContent: a.justifyContent, alignItems: a.alignItems,
-        overflow: 'hidden', width: '100%',
+        overflow: 'hidden', width: '100%', height: '100%',
     });
-    return `<div class="dw-fittedbox"${attrStyle(style)}>${renderChild(node.child, ctx)}</div>`;
+    const cls = fillChild ? 'dw-fittedbox dw-fittedbox-fill' : 'dw-fittedbox';
+    return `<div class="${cls}"${attrStyle(style)}>${renderChild(node.child, ctx)}</div>`;
 }
 
 function renderBaseline(node: any, ctx: RenderContext): string {
@@ -175,7 +185,9 @@ function renderSingleChildScrollView(node: any, ctx: RenderContext): string {
         overflowX: horizontal ? 'auto' : overflow,
         overflowY: horizontal ? overflow : 'auto',
         padding: edgeInsetsToCss(node.padding),
-        maxHeight: !horizontal ? '480px' : undefined,
+        // Fill whatever height the parent (e.g. Scaffold body) actually gives, rather than an
+        // arbitrary cap, so this scrolls within the real available space.
+        height: !horizontal ? '100%' : undefined,
     });
     return `<div class="dw-scrollview"${attrStyle(style)}>${renderChild(node.child, ctx)}</div>`;
 }
@@ -204,18 +216,23 @@ function renderExpanded(node: any, ctx: RenderContext): string {
 
 function renderWrap(node: any, ctx: RenderContext): string {
     const vertical = node.direction === 'vertical';
+    const spacing = num(node.spacing) ?? 0;
+    const runSpacing = num(node.runSpacing) ?? 0;
+    // CSS `gap` is always "row-gap column-gap", which swaps meaning relative to Wrap's
+    // main/cross axes depending on flex-direction: for column direction, spacing (main
+    // axis, now vertical) becomes row-gap and runSpacing (cross axis) becomes column-gap.
     const style = styleStr({
         display: 'flex', flexWrap: 'wrap', flexDirection: vertical ? 'column' : 'row',
         justifyContent: mainAxisAlignmentToCss(node.alignment),
-        alignItems: crossAxisAlignmentToCss(node.crossAxisAlignment),
+        alignItems: crossAxisAlignmentToCss(node.crossAxisAlignment ?? 'start'),
         alignContent: mainAxisAlignmentToCss(node.runAlignment),
-        gap: `${num(node.runSpacing) ?? 0}px ${num(node.spacing) ?? 0}px`,
+        gap: vertical ? `${spacing}px ${runSpacing}px` : `${runSpacing}px ${spacing}px`,
     });
     return `<div class="dw-wrap"${attrStyle(style)}>${renderChildren(node.children, ctx)}</div>`;
 }
 
 function renderStack(node: any, ctx: RenderContext): string {
-    const a = alignmentToFlex(node.alignment);
+    const a = alignmentToFlex(node.alignment, 'topLeft');
     const style = styleStr({ position: 'relative', overflow: clipToOverflow(node.clipBehavior) });
     const children = Array.isArray(node.children)
         ? node.children.map((child: any) => renderStackChild(child, ctx, a)).join('')
@@ -242,7 +259,7 @@ function renderPositioned(node: any, ctx: RenderContext): string {
 
 function renderIndexedStack(node: any, ctx: RenderContext): string {
     const idx = node.index ?? 0;
-    const a = alignmentToFlex(node.alignment);
+    const a = alignmentToFlex(node.alignment, 'topLeft');
     const children = Array.isArray(node.children) ? node.children.map((child: any, i: number) => {
         const shown = i === idx;
         const style = styleStr({
@@ -256,14 +273,27 @@ function renderIndexedStack(node: any, ctx: RenderContext): string {
 
 function renderGridView(node: any, ctx: RenderContext): string {
     const cols = node.crossAxisCount ?? 2;
+    const horizontal = node.scrollDirection === 'horizontal';
+    const ratio = num(node.childAspectRatio) ?? 1;
+    // shrinkWrap (default false) means "size to fit content"; otherwise GridView expects bounded
+    // constraints from its ancestor (e.g. Scaffold body) and manages its own internal scrolling.
+    const fill = !node.shrinkWrap;
     const style = styleStr({
-        display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        display: 'grid',
+        gridTemplateColumns: horizontal ? undefined : `repeat(${cols}, 1fr)`,
+        gridTemplateRows: horizontal ? `repeat(${cols}, 1fr)` : undefined,
+        gridAutoFlow: horizontal ? 'column' : 'row',
+        // Rows are always sized by childAspectRatio in real GridView — never stretched to fill
+        // leftover container height (CSS Grid's default align-content:stretch would do that).
+        alignContent: 'start',
+        overflowX: horizontal ? 'auto' : undefined,
+        overflowY: horizontal ? 'hidden' : (fill ? 'auto' : undefined),
+        height: fill ? '100%' : undefined,
         gap: `${num(node.mainAxisSpacing) ?? 0}px ${num(node.crossAxisSpacing) ?? 0}px`,
         padding: edgeInsetsToCss(node.padding),
     });
-    const ratio = num(node.childAspectRatio);
     const children = Array.isArray(node.children) ? node.children.map((child: any) => {
-        const itemStyle = styleStr({ aspectRatio: ratio ? String(ratio) : undefined, overflow: 'hidden' });
+        const itemStyle = styleStr({ aspectRatio: String(ratio), overflow: 'hidden' });
         return `<div class="dw-grid-item"${attrStyle(itemStyle)}>${renderWidget(child, ctx)}</div>`;
     }).join('') : '';
     return `<div class="dw-gridview"${attrStyle(style)}>${children}</div>`;
@@ -277,7 +307,9 @@ function renderListView(node: any, ctx: RenderContext): string {
         overflowX: horizontal ? 'auto' : 'hidden',
         overflowY: horizontal ? 'hidden' : 'auto',
         padding: edgeInsetsToCss(node.padding),
-        maxHeight: !horizontal && !node.shrinkWrap ? '480px' : undefined,
+        // shrinkWrap means "size to content" (real Flutter behavior); otherwise fill the
+        // parent's available height, like Scaffold's body/SingleChildScrollView.
+        height: !horizontal && !node.shrinkWrap ? '100%' : undefined,
     });
     const itemExtent = px(node.itemExtent);
     const children = Array.isArray(node.children) ? node.children.map((child: any) => {
@@ -288,14 +320,16 @@ function renderListView(node: any, ctx: RenderContext): string {
 }
 
 function renderPageView(node: any, ctx: RenderContext): string {
-    const horizontal = node.scrollDirection !== 'vertical';
+    const horizontal = node.scrollDirection === 'horizontal';
     const style = styleStr({
         display: 'flex',
         flexDirection: horizontal ? (node.reverse ? 'row-reverse' : 'row') : (node.reverse ? 'column-reverse' : 'column'),
         overflowX: horizontal ? 'auto' : 'hidden',
         overflowY: horizontal ? 'hidden' : 'auto',
         scrollSnapType: node.pageSnapping === false ? undefined : (horizontal ? 'x mandatory' : 'y mandatory'),
-        width: '100%', height: '360px',
+        // PageView always fills whatever bounded constraints its parent gives it (no shrinkWrap
+        // concept in Flutter) — fill the parent (e.g. Scaffold body) rather than a fixed guess.
+        width: '100%', height: '100%',
     });
     const children = Array.isArray(node.children) ? node.children.map((child: any) => {
         const itemStyle = styleStr({ flex: '0 0 100%', scrollSnapAlign: 'start', overflow: 'auto' });
@@ -412,7 +446,7 @@ function renderListTile(node: any, ctx: RenderContext): string {
         backgroundColor: node.selected ? 'rgba(33,150,243,0.12)' : undefined,
         opacity: node.enabled === false ? '0.5' : undefined,
         cursor: node.tapEvent ? 'pointer' : undefined,
-        minHeight: node.isThreeLine ? '72px' : (node.dense ? '40px' : '56px'),
+        minHeight: node.isThreeLine ? (node.dense ? '76px' : '88px') : (node.dense ? '48px' : '56px'),
     });
     const leading = node.leading ? `<div class="dw-listtile-leading">${renderWidget(node.leading, ctx)}</div>` : '';
     const trailing = node.trailing ? `<div class="dw-listtile-trailing">${renderWidget(node.trailing, ctx)}</div>` : '';
@@ -422,7 +456,7 @@ function renderListTile(node: any, ctx: RenderContext): string {
 }
 
 function renderPlaceholder(node: any): string {
-    const color = parseColor(node.color) ?? 'rgba(158,158,158,1)';
+    const color = parseColor(node.color) ?? 'rgba(69,90,100,1)';
     const strokeWidth = num(node.strokeWidth) ?? 2;
     const width = px(node.fallbackWidth) ?? '400px';
     const height = px(node.fallbackHeight) ?? '400px';
@@ -446,6 +480,17 @@ function renderDivider(node: any): string {
     return `<div class="dw-divider"${attrStyle(style)}><div style="width:100%;height:${thickness}px;background-color:${color}"></div></div>`;
 }
 
+/** Parses dynamic_widget's "x:y,x:y,x:y,x:y" (TL,TR,BR,BL) shape.borderRadius into CSS border-radius. */
+function parseCardBorderRadius(value: string): string | undefined {
+    const parts = value.split(',').map(s => s.trim());
+    if (parts.length !== 4) { return undefined; }
+    const radii = parts.map(p => {
+        const x = parseFloat(p.split(':')[0]);
+        return isNaN(x) ? 0 : x;
+    });
+    return `${radii[0]}px ${radii[1]}px ${radii[2]}px ${radii[3]}px`;
+}
+
 function renderCard(node: any, ctx: RenderContext): string {
     const margin = edgeInsetsToCss(node.margin) ?? '4px';
     const color = parseColor(node.color) ?? '#ffffff';
@@ -453,21 +498,30 @@ function renderCard(node: any, ctx: RenderContext): string {
     const elevation = num(node.elevation) ?? 1;
     let borderRadius = '4px';
     if (node.shape && typeof node.shape === 'object' && node.shape.borderRadius) {
-        borderRadius = String(node.shape.borderRadius);
+        borderRadius = parseCardBorderRadius(String(node.shape.borderRadius)) ?? '4px';
     }
     const style = styleStr({
         margin, backgroundColor: color, borderRadius,
         boxShadow: `0 ${elevation}px ${elevation * 2}px ${shadowColor}`,
-        overflow: node.clipBehavior && node.clipBehavior !== 'none' ? 'hidden' : undefined,
+        overflow: clipToOverflow(node.clipBehavior),
     });
     return `<div class="dw-card"${attrStyle(style)}>${renderChild(node.child, ctx)}</div>`;
 }
 
 function renderScaffold(node: any, ctx: RenderContext): string {
     const bg = parseColor(node.backgroundColor) ?? '#ffffff';
-    const style = styleStr({ display: 'flex', flexDirection: 'column', minHeight: '480px', backgroundColor: bg, position: 'relative' });
+    // Flutter's Scaffold has no width/height of its own — it always fills whatever space its
+    // parent gives it (the full device screen, when it's the app's root). height:100% fills the
+    // device-preview frame; minHeight is a fallback for contexts with no definite ancestor height.
+    const style = styleStr({
+        display: 'flex', flexDirection: 'column', height: '100%', minHeight: '480px',
+        backgroundColor: bg, position: 'relative',
+    });
     const appBar = node.appBar ? renderWidget(node.appBar, ctx) : '';
-    const body = `<div class="dw-scaffold-body" style="flex:1;position:relative">${renderChild(node.body, ctx)}</div>`;
+    // min-height:0 overrides the flex item's default min-height:auto, which would otherwise
+    // refuse to shrink below the body's content size (a classic flexbox trap) — without it, a
+    // tall scrollable body balloons the whole Scaffold instead of scrolling within its own box.
+    const body = `<div class="dw-scaffold-body" style="flex:1;position:relative;min-height:0">${renderChild(node.body, ctx)}</div>`;
     const fab = node.floatingActionButton
         ? `<div class="dw-scaffold-fab" style="position:absolute;right:16px;bottom:16px;z-index:10">${renderWidget(node.floatingActionButton, ctx)}</div>`
         : '';
@@ -478,16 +532,32 @@ function renderAppBar(node: any, ctx: RenderContext): string {
     const bg = parseColor(node.backgroundColor) ?? '#2196F3';
     const style = styleStr({
         display: 'flex', alignItems: 'center', height: '56px', padding: '0 16px', backgroundColor: bg,
-        color: '#fff', gap: '16px', justifyContent: node.centerTitle ? 'center' : 'flex-start',
+        color: '#fff', gap: '16px',
     });
     const leading = node.leading ? renderWidget(node.leading, ctx) : '';
+    // `leading` always stays pinned at the far left; only `title` shifts with centerTitle,
+    // via a flex:1 wrapper so it centers within the remaining space rather than the whole bar.
+    const titleWrapStyle = styleStr({
+        flex: '1', display: 'flex', justifyContent: node.centerTitle ? 'center' : 'flex-start', minWidth: '0',
+    });
     const title = node.title
-        ? `<div class="dw-appbar-title" style="flex:${node.centerTitle ? '0' : '1'};font-size:1.25em">${renderWidget(node.title, ctx)}</div>`
+        ? `<div class="dw-appbar-title"${attrStyle(titleWrapStyle)}><span style="font-size:1.25em">${renderWidget(node.title, ctx)}</span></div>`
         : '';
     const actions = Array.isArray(node.actions)
         ? `<div class="dw-appbar-actions" style="display:flex;gap:8px;margin-left:auto">${node.actions.map((a: any) => renderWidget(a, ctx)).join('')}</div>`
         : '';
     return `<div class="dw-appbar"${attrStyle(style)}>${leading}${title}${actions}</div>`;
+}
+
+function renderColoredBox(node: any, ctx: RenderContext): string {
+    const color = parseColor(node.color) ?? 'transparent';
+    const style = styleStr({ backgroundColor: color, cursor: node.click_event ? 'pointer' : undefined });
+    return `<div class="dw-coloredbox"${attrStyle(style)}${titleAttr(node.click_event)}>${renderChild(node.child, ctx)}</div>`;
+}
+
+function renderRepaintBoundary(node: any, ctx: RenderContext): string {
+    const style = styleStr({ cursor: node.click_event ? 'pointer' : undefined });
+    return `<div class="dw-repaintboundary"${attrStyle(style)}${titleAttr(node.click_event)}>${renderChild(node.child, ctx)}</div>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -538,4 +608,6 @@ const RENDERERS: Record<string, Renderer> = {
     RotatedBox: renderRotatedBox,
     Card: renderCard,
     SingleChildScrollView: renderSingleChildScrollView,
+    ColoredBox: renderColoredBox,
+    RepaintBoundary: renderRepaintBoundary,
 };

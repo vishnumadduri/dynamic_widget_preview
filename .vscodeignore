@@ -8,3 +8,4 @@ tsconfig.json
 .vscode-test/**
 samples/**
 widgets.md
+dynamic_widget/**

@@ -30,3 +30,4 @@ coverage/
 .env
 .env.local
 *.pem
+dynamic_widget/

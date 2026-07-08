@@ -85,8 +85,8 @@ img { max-width: 100%; }
 
 /* SizedBox/Expanded/AspectRatio give their child *tight* constraints in Flutter: the
    child fills the box exactly, even a bare Container with no width/height of its own. */
-.dw-sizedbox, .dw-expandedsizedbox, .dw-expanded, .dw-aspectratio { display: flex; }
-.dw-sizedbox > *, .dw-expandedsizedbox > *, .dw-expanded > *, .dw-aspectratio > * {
+.dw-sizedbox, .dw-expandedsizedbox, .dw-expanded, .dw-aspectratio, .dw-fittedbox-fill { display: flex; }
+.dw-sizedbox > *, .dw-expandedsizedbox > *, .dw-expanded > *, .dw-aspectratio > *, .dw-fittedbox-fill > * {
     flex: 1 1 auto; width: 100%; height: 100%; min-width: 0; min-height: 0;
 }
 `;

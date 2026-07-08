@@ -1,0 +1,32 @@
+{
+  "type": "Container",
+  "color": "#FF00FF",
+  "alignment": "center",
+  "child": {
+    "type": "Text",
+    "maxLines": 3,
+    "textSpan": {
+      "text": "Flutter",
+      "style": {
+        "color": "#00FFFF",
+        "fontSize": 26
+      },
+      "recognizer": "route://productDetail?goods_id=123",
+      "children": [
+        {
+          "text": " dynamic",
+          "style": {
+            "fontSize": 22
+          }
+        },
+        {
+          "text": " widget",
+          "style": {
+            "color": "#00FF00",
+            "fontSize": 18
+          }
+        }
+      ]
+    }
+  }
+}

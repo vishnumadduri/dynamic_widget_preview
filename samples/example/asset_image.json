@@ -1,0 +1,9 @@
+{
+  "type": "Container",
+  "color": "#FFFFFF",
+  "alignment": "center",
+  "child": {
+    "type": "AssetImage",
+    "name": "assets/vip.png"
+  }
+}

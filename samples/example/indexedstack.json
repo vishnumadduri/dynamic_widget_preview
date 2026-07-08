@@ -1,0 +1,20 @@
+{
+  "type": "IndexedStack",
+  "alignment": "topLeft",
+  "index": 1,
+  "children": [
+    {
+      "type": "AssetImage",
+      "name": "assets/vip.png"
+    },
+    {
+      "type": "Positioned",
+      "top": 50,
+      "left": 50,
+      "child": {
+        "type": "AssetImage",
+        "name": "assets/vip.png"
+      }
+    }
+  ]
+}

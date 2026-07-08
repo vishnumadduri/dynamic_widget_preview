@@ -1,0 +1,16 @@
+{
+  "type": "Container",
+  "color": "#FF00FF",
+  "alignment": "center",
+  "child": {
+    "type": "SelectableText",
+    "data": "Flutter dynamic widget",
+    "maxLines": 3,
+    "style": {
+      "color": "#00FFFF",
+      "fontSize": 20,
+      "fontWeight": "bold",
+      "decoration": "underline"
+    }
+  }
+}

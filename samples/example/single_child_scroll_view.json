@@ -1,0 +1,42 @@
+{
+  "type": "SingleChildScrollView",
+  "child": {
+    "type": "Column",
+    "crossAxisAlignment": "start",
+    "mainAxisAlignment": "start",
+    "mainAxisSize": "max",
+    "textBaseline": "alphabetic",
+    "textDirection": "ltr",
+    "verticalDirection": "down",
+    "children": [
+      {
+        "type": "Placeholder",
+        "color": "#00FF00",
+        "strokeWidth": 6,
+        "fallbackWidth": 100,
+        "fallbackHeight": 200
+      },
+      {
+        "type": "Placeholder",
+        "color": "#FF0000",
+        "strokeWidth": 6,
+        "fallbackWidth": 100,
+        "fallbackHeight": 200
+      },
+      {
+        "type": "Placeholder",
+        "color": "#0000FF",
+        "strokeWidth": 6,
+        "fallbackWidth": 100,
+        "fallbackHeight": 200
+      },
+      {
+        "type": "Placeholder",
+        "color": "#000000",
+        "strokeWidth": 6,
+        "fallbackWidth": 100,
+        "fallbackHeight": 200
+      }
+    ]
+  }
+}
