@@ -1,7 +1,10 @@
 .vscode/**
+.claude/**
 src/**
 node_modules/**
 tsconfig.json
 .gitignore
 **/*.map
 .vscode-test/**
+samples/**
+widgets.md

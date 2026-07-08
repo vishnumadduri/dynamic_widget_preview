@@ -5,6 +5,11 @@
   "version": "0.1.0",
   "publisher": "local",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vishnumadduri/dynamic_widget_preview.git"
+  },
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -15,7 +20,7 @@
   "activationEvents": [
     "onCommand:dynamicWidgetPreview.start"
   ],
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {

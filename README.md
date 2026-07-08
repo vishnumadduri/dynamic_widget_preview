@@ -25,7 +25,7 @@ Live preview for [dynamic_widget](https://pub.dev/packages/dynamic_widget) JSON 
 
 ```
 npm install    # install dependencies
-npm run compile   # one-off TypeScript build -> out/
+npm run compile   # one-off TypeScript build -> dist/
 npm run watch      # incremental build on file change (for development)
 ```
 
@@ -43,7 +43,7 @@ code --install-extension dynamic-widget-preview-0.1.0.vsix
 
 or in VS Code: Extensions view → `...` menu → **Install from VSIX...**.
 
-`.vscodeignore` keeps the package limited to `out/`, `package.json`, `README.md`, `widgets.md`, and `samples/` — source `.ts` files and editor config are excluded.
+`.vscodeignore` keeps the package limited to `dist/`, `package.json`, `README.md`, and `LICENSE` — source `.ts` files, editor config, `widgets.md`, and `samples/` are excluded.
 
 ## Supported widgets
 
